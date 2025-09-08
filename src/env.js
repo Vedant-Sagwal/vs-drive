@@ -7,11 +7,13 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    DATABASE_URL: z.string().url(),
+    POSTGRESS_URL: z.string().url().refine(
+      (str) =>!str.includes("YOUR_MYSQL_HERE"),"You forgot to change the default url"
+    ),
     NODE_ENV: z
       .enum(["development", "test", "production"])
-      .default("development"),
-  },
+      .default("development"), 
+},
 
   /**
    * Specify your client-side environment variables schema here. This way you can ensure the app
@@ -27,8 +29,8 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
-    NODE_ENV: process.env.NODE_ENV,
+    POSTGRESS_URL: process.env.POSTGRESS_URL,
+    NODE_ENV : process.env.NODE_ENV
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
