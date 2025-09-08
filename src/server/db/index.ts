@@ -9,7 +9,7 @@ import * as schema from "./schema";
  * update.
  */
 const conn = new Pool({
-  connectionString : process.env.POSTGRESS_URL,
+  connectionString : process.env.DATABASE_URL,
 });
 
 export const db = drizzle(conn, {schema});
